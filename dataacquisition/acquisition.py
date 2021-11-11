@@ -4,7 +4,6 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy.util as util
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 from spotipy.oauth2 import SpotifyOAuth
 from pprint import pprint
 from time import sleep
@@ -25,8 +24,8 @@ client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secr
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 
-analysis = sp.audio_analysis("https://open.spotify.com/track/3Yb3Z1HRrMrBh886cayujG?si=89aa3cca4e6c4f5f")
-features = sp.audio_features("https://open.spotify.com/track/3Yb3Z1HRrMrBh886cayujG?si=89aa3cca4e6c4f5f")
+analysis = sp.audio_analysis("")
+features = sp.audio_features("")
 features_df = pd.DataFrame(data=features, columns=features[0].keys())
 beats_df = pd.DataFrame(data=analysis['beats'])
 segments_df = pd.DataFrame(data=analysis['segments'])
@@ -35,7 +34,6 @@ tatums_df = pd.DataFrame(data=analysis['tatums'])
 
 
 plt.figure(figsize=(20,30))
-sns.pairplot(beats_df)
 plt.xticks(rotation=90)
 
 print(segments_df)
