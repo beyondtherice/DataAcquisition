@@ -1,13 +1,13 @@
 import spotipy
 
 sp = spotipy.Spotify()
-from spotipy.oauth2 import SpotifyClientCredentials
-import spotipy.util as util
-import pandas as pd
-import matplotlib.pyplot as plt
-from spotipy.oauth2 import SpotifyOAuth
 from pprint import pprint
 from time import sleep
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import spotipy.util as util
+from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 
 # setting up authorization
 cid = ""
