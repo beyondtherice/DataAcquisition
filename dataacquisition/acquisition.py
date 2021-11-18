@@ -1,3 +1,10 @@
+from dotenv import load_values
+import os
+
+load_dotenv()
+#environment variables
+
+#just use blah = os.getenv("WHATEVER_ENV_VARIABLE_IS")
 import spotipy
 
 sp = spotipy.Spotify()
@@ -37,8 +44,9 @@ segments_df = pd.DataFrame(data=analysis["segments"])
 bars_df = pd.DataFrame(data=analysis["bars"])
 tatums_df = pd.DataFrame(data=analysis["tatums"])
 
-
+blahblahblah = dotenv_values("CLIENT_ID")
 plt.figure(figsize=(20, 30))
 plt.xticks(rotation=90)
 
 print(segments_df)
+print(blahblahblah)
