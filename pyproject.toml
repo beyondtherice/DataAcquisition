@@ -25,6 +25,15 @@ mypy = "^0.910"
 profile = "black"
 multi_line_output = 3
 
+[tool.pylint.format]
+max-line-length = "88"
+
+[tool.pylint.master]
+extension-pkg-whitelist = "pydantic"
+
+[tool.pylint.messages_control]
+disable = "C0330, C0326"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
