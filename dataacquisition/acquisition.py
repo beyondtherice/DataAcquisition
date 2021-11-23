@@ -1,30 +1,30 @@
-import spotipy
-
-sp = spotipy.Spotify()
-from pprint import pprint
-from time import sleep
-
+'''Gets information for the beats of a song from spotify'''
+#from pprint import pprint
+#from time import sleep
 import matplotlib.pyplot as plt
 import pandas as pd
+import spotipy
 import spotipy.util as util
-from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
+from spotipy.oauth2 import SpotifyClientCredentials#, SpotifyOAuth
+sp = spotipy.Spotify()
 
 # setting up authorization
-cid = ""
-secret = ""
+CID = ""
+SECRET = ""
 
-username = "your_account_number"
-scope = "user-library-read,user-read-playback-state,user-modify-playback-state"  # check the documentation
-authorization_url = "https://accounts.spotify.com/authorize"
-token_url = "https://accounts.spotify.com/api/token"
-redirect_uri = ""
+USERNAME = "your_account_number"
+SCOPE = "user-library-read,user-read-playback-state,user-modify-playback-state"
+# check the documentation
+AUTHORIZATION_URL = "https://accounts.spotify.com/authorize"
+TOKEN_URL = "https://accounts.spotify.com/api/token"
+REDIRECT_URI = ""
 
 token = util.prompt_for_user_token(
-    username, scope, client_id="", client_secret="", redirect_uri=""
+    USERNAME, SCOPE, client_id="", client_secret="", redirect_uri=""
 )
 
 client_credentials_manager = SpotifyClientCredentials(
-    client_id=cid, client_secret=secret
+    client_id=CID, client_secret=SECRET
 )
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
