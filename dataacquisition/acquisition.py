@@ -1,9 +1,8 @@
 from dotenv import load_dotenv
-import os
-from pathlib import Path
+load_dotenv()
 
-env_path = Path('.')/'.env'
-load_dotenv(dotenv_path=env_path)
+import os
+
 #environment variables
 
 import spotipy
@@ -18,8 +17,8 @@ import spotipy.util as util
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 
 # setting up authorization
-cid = os.getenv("CLIENT_ID")
-secret = os.getenv("CLIENT_SECRET")
+cid = os.environ.get("CLIENT_ID")
+secret = os.environ.get("CLIENT_SECRET")
 
 username = "your_account_number"
 scope = "user-library-read,user-read-playback-state,user-modify-playback-state"  # check the documentation
@@ -28,7 +27,7 @@ token_url = "https://accounts.spotify.com/api/token"
 redirect_uri = "REDIRECT_URI"
 
 token = util.prompt_for_user_token(
-    username, scope, client_id=os.getenv("CLIENT_ID"), client_secret=os.getenv("CLIENT_SECRET"), redirect_uri=os.getenv("REDIRECT_URI")
+    username, scope, client_id=os.environ.get("CLIENT_ID"), client_secret=os.environ.get("CLIENT_SECRET"), redirect_uri=os.environ.get("REDIRECT_URI")
 )
 
 client_credentials_manager = SpotifyClientCredentials(
