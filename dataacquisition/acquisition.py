@@ -1,3 +1,10 @@
+from dotenv import load_dotenv
+load_dotenv()
+
+import os
+
+#environment variables
+
 import spotipy
 
 sp = spotipy.Spotify()
@@ -10,17 +17,17 @@ import spotipy.util as util
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 
 # setting up authorization
-cid = ""
-secret = ""
+cid = os.environ.get("CLIENT_ID")
+secret = os.environ.get("CLIENT_SECRET")
 
 username = "your_account_number"
 scope = "user-library-read,user-read-playback-state,user-modify-playback-state"  # check the documentation
 authorization_url = "https://accounts.spotify.com/authorize"
 token_url = "https://accounts.spotify.com/api/token"
-redirect_uri = ""
+redirect_uri = "REDIRECT_URI"
 
 token = util.prompt_for_user_token(
-    username, scope, client_id="", client_secret="", redirect_uri=""
+    username, scope, client_id=os.environ.get("CLIENT_ID"), client_secret=os.environ.get("CLIENT_SECRET"), redirect_uri=os.environ.get("REDIRECT_URI")
 )
 
 client_credentials_manager = SpotifyClientCredentials(
@@ -36,7 +43,6 @@ beats_df = pd.DataFrame(data=analysis["beats"])
 segments_df = pd.DataFrame(data=analysis["segments"])
 bars_df = pd.DataFrame(data=analysis["bars"])
 tatums_df = pd.DataFrame(data=analysis["tatums"])
-
 
 plt.figure(figsize=(20, 30))
 plt.xticks(rotation=90)
