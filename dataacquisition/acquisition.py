@@ -1,41 +1,30 @@
-from dotenv import load_dotenv
-load_dotenv()
-
+"""analyzes given spotify song"""
 import os
-
-#environment variables
-
-import spotipy
-
-sp = spotipy.Spotify()
-from pprint import pprint
-from time import sleep
 
 import matplotlib.pyplot as plt
 import pandas as pd
-import spotipy.util as util
-from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
+import spotipy
+from dotenv import load_dotenv
+from spotipy.oauth2 import SpotifyClientCredentials
 
-# setting up authorization
+# environment variables
+load_dotenv()
+
+sp = spotipy.Spotify()
+
 cid = os.environ.get("CLIENT_ID")
 secret = os.environ.get("CLIENT_SECRET")
 
-username = "your_account_number"
-scope = "user-library-read,user-read-playback-state,user-modify-playback-state"  # check the documentation
-authorization_url = "https://accounts.spotify.com/authorize"
-token_url = "https://accounts.spotify.com/api/token"
-redirect_uri = "REDIRECT_URI"
-
-token = util.prompt_for_user_token(
-    username, scope, client_id=os.environ.get("CLIENT_ID"), client_secret=os.environ.get("CLIENT_SECRET"), redirect_uri=os.environ.get("REDIRECT_URI")
-)
+SCOPE = "user-library-read,user-read-playback-state,user-modify-playback-state"
+AUTHORIZATION_URL = "https://accounts.spotify.com/authorize"
+TOKEN_URL = "https://accounts.spotify.com/api/token" # nosec
 
 client_credentials_manager = SpotifyClientCredentials(
     client_id=cid, client_secret=secret
 )
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
-
+# in quotes should be track uri, i.e. spotify:track:6yIjtVtnOBeC8SwdVHzAuF
 analysis = sp.audio_analysis("")
 features = sp.audio_features("")
 features_df = pd.DataFrame(data=features, columns=features[0].keys())
