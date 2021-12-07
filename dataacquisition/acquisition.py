@@ -4,11 +4,12 @@ import spotipy
 sp = spotipy.Spotify()
 from pprint import pprint
 from time import sleep
-
-
+from dotenv import load_dotenv
 import pandas as pd
 import spotipy.util as util
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
+
+load_dotenv()
 
 def authentication(cid,secret,username):    
     scope = "user-library-read,user-read-playback-state,user-modify-playback-state"
@@ -31,9 +32,9 @@ def analysis(track,sp):
     return beats_df
 
 if __name__ == "__main__":
-    username =  CLIENT_USERNAME
-    cid = CLIENT_ID
-    secret = CLIENT_ID
+    username = os.environ.get("CLIENT_USERNAME")
+    cid = os.environ.get("CLIENT_ID")
+    secret = os.environ.get("CLIENT_SECRET")
     track = "spotify:track:6yIjtVtnOBeC8SwdVHzAuF"
     sp = authentication(cid,secret,username)
     beats = analysis(track,sp)
