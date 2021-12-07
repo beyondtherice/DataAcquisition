@@ -19,6 +19,9 @@ jobs:
       - name: Install poetry
         run: |
           pip install poetry
+        
+      - name: Install dependencies
+        run: |
           poetry install
       
       - name: pylint
@@ -27,23 +30,23 @@ jobs:
           poetry run pylint ./tests/
           
       - name: bandit
-        run : |
+        run: |
           poetry run bandit -r /dataacquisition/
           poetry run bandit -r /tests/
           
       - name: isort
-        run : |
+        run: |
           poetry run isort .
           
       - name: safety
-        run : |
+        run: |
           poetry run safety check
           
       - name: black
-        run : |
+        run: |
           poetry run black --diff .
       
       - name: semgrep
-        run : |
+        run: |
           poetry run semgrep --config auto .
 
