@@ -1,5 +1,5 @@
 """analyzes given spotify song"""
-mport spotipy
+import spotipy
 
 sp = spotipy.Spotify()
 from pprint import pprint
@@ -14,7 +14,6 @@ def authentication(cid,secret,username):
     scope = "user-library-read,user-read-playback-state,user-modify-playback-state"
     authorization_url = "https://accounts.spotify.com/authorize"
     token_url = "https://accounts.spotify.com/api/token"
-    redirect_uri = uri
     client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret)
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
                     
@@ -36,7 +35,7 @@ if __name__ == "__main__":
     cid = CLIENT_ID
     secret = CLIENT_ID
     track = "spotify:track:6yIjtVtnOBeC8SwdVHzAuF"
-    sp = authentication(cid,secret,uri,username)
+    sp = authentication(cid,secret,username)
     beats = analysis(track,sp)
     beatStart = beats["start"]
 
