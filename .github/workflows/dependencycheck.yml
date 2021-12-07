@@ -1,0 +1,49 @@
+name: Dependency Check
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install poetry
+        run: |
+          pip install poetry
+          poetry install
+      
+      - name: pylint
+        run: |
+          poetry run pylint ./dataacquisition/
+          poetry run pylint ./tests/
+          
+      - name: bandit
+        run : |
+          poetry run bandit -r /dataacquisition/
+          poetry run bandit -r /tests/
+          
+      - name: isort
+        run : |
+          poetry run isort .
+          
+      - name: safety
+        run : |
+          poetry run safety check
+          
+      - name: black
+        run : |
+          poetry run black --diff .
+      
+      - name: semgrep
+        run : |
+          poetry run semgrep --config auto .
+
