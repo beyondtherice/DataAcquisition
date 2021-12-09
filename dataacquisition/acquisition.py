@@ -5,14 +5,14 @@ from dotenv import load_dotenv
 import pandas as pd
 from spotipy.oauth2 import SpotifyClientCredentials
 
-def authentication(cid: str,secret: str,username: str) -> any:
+def authentication(cid: str,secret: str) -> any:
     """Sets up the client authentication"""
-    client_credentials_manager = SpotifyClientCredentials(client_id=cid, 
+    client_credentials_manager = SpotifyClientCredentials(client_id=cid,
             client_secret=secret)
     spot_auth = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     return spot_auth
 
-def analysis(track: str,spot_auth) -> any:
+def analysis_func(track: str,spot_auth) -> any:
     """analyses the trck useing the spotify api"""
     analysis = spot_auth.audio_analysis(track)
     # features = spot_auth.audio_features(track)
@@ -26,7 +26,7 @@ def analysis(track: str,spot_auth) -> any:
 def beatmaker(beats):
     """appends the osu file with data"""
     beat_start = beats["start"]
-    with open("osutesting.osu", 'a') as beatmap:
+    with open("osutesting.osu", 'a', encoding="utf-8") as beatmap:
         for index, _ in beats.iterrows():
             print("256,192,",beat_start[index]*1000,",5,4,0:0:0:0:\n", sep='')
             beatmap.write("256,192,"+ str(beat_start[index]*1000) +",5,4,0:0:0:0:\n")
@@ -34,14 +34,13 @@ def beatmaker(beats):
 def main():
     """declared variables and calls other funvtions"""
     load_dotenv()
-    username: str = os.environ.get("CLIENT_USERNAME")
     cid: str = os.environ.get("CLIENT_ID")
     secret: str = os.environ.get("CLIENT_SECRET")
 
-    spot_auth = authentication(cid,secret,username)
+    spot_auth = authentication(cid,secret)
 
     track = "spotify:track:6yIjtVtnOBeC8SwdVHzAuF"
-    beats = analysis(track,spot_auth)
+    beats = analysis_func(track,spot_auth)
     beatmaker(beats)
 
 if __name__ == "__main__":
