@@ -1,0 +1,61 @@
+osu file format v14
+
+[General]
+AudioFilename: audio.mp3
+AudioLeadIn: 0
+PreviewTime: 191496
+Countdown: 0
+SampleSet: Normal
+StackLeniency: 0.7
+Mode: 1
+LetterboxInBreaks: 0
+WidescreenStoryboard: 0
+
+[Editor]
+Bookmarks: 13967,25065,36163,47262,91655,102753,113851,158244,202637,213736
+DistanceSpacing: 1.6
+BeatDivisor: 4
+GridSize: 16
+TimelineZoom: 0.5999998
+
+[Metadata]
+Title:Click on this one
+TitleUnicode:Bittersweet
+Artist: ME
+ArtistUnicode: ME
+Creator:ME
+Version:Hefadog's generated
+Source:osu!
+Tags:featured artist fa nardoxyribonucleic Nakarin Yunomi KASSYKASSY Game Mix
+BeatmapID:1772048
+BeatmapSetID:847323
+
+[Difficulty]
+HPDrainRate:6
+CircleSize:5
+OverallDifficulty:4
+ApproachRate:5
+SliderMultiplier:1.4
+SliderTickRate:1
+
+[Events]
+//Background and Video events
+0,0,"BG.jpg",0,0
+//Break Periods
+//Storyboard Layer 0 (Background)
+//Storyboard Layer 1 (Fail)
+//Storyboard Layer 2 (Pass)
+//Storyboard Layer 3 (Foreground)
+//Storyboard Sound Samples
+
+[TimingPoints]
+2869,346.820809248555,4,1,0,70,1,0
+58360,-100,4,1,0,70,0,1
+80556,-100,4,1,0,70,0,0
+124949,-100,4,1,0,70,0,1
+147146,-100,4,1,0,70,0,0
+169342,-100,4,1,0,70,0,1
+191539,-100,4,1,0,70,0,0
+
+
+[HitObjects]
