@@ -11,7 +11,7 @@ from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 
 load_dotenv()
 
-def authentication(cid,secret,username):    
+def authentication(cid: str,secret: str,username: str):    
     scope = "user-library-read,user-read-playback-state,user-modify-playback-state"
     authorization_url = "https://accounts.spotify.com/authorize"
     token_url = "https://accounts.spotify.com/api/token"
@@ -20,7 +20,7 @@ def authentication(cid,secret,username):
                     
     return sp
 
-def analysis(track,sp):
+def analysis(track: str,sp):
     analysis = sp.audio_analysis(track)
     features = sp.audio_features(track)
     features_df = pd.DataFrame(data=features, columns=features[0].keys())
