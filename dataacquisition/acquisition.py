@@ -1,23 +1,17 @@
 """analyzes given spotify song"""
 import spotipy
-
+import os
 sp = spotipy.Spotify()
 from pprint import pprint
-from time import sleep
 from dotenv import load_dotenv
 import pandas as pd
-import spotipy.util as util
-from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
+from spotipy.oauth2 import SpotifyClientCredentials
 
 load_dotenv()
 
-def authentication(cid: str,secret: str,username: str):    
-    scope = "user-library-read,user-read-playback-state,user-modify-playback-state"
-    authorization_url = "https://accounts.spotify.com/authorize"
-    token_url = "https://accounts.spotify.com/api/token"
+def authentication(cid: str,secret: str,username: str):
     client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret)
-    sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-                    
+    sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager) 
     return sp
 
 def analysis(track: str,sp):
@@ -28,7 +22,6 @@ def analysis(track: str,sp):
     segments_df = pd.DataFrame(data=analysis["segments"])
     bars_df = pd.DataFrame(data=analysis["bars"])
     tatums_df = pd.DataFrame(data=analysis["tatums"])
-    
     return beats_df
 
 if __name__ == "__main__":
@@ -39,7 +32,6 @@ if __name__ == "__main__":
     sp = authentication(cid,secret,username)
     beats = analysis(track,sp)
     beatStart = beats["start"]
-
     F = open("osutesting.osu", 'a')
     for index, j in beats.iterrows():
         print("256,192,",beatStart[index]*1000,",5,4,0:0:0:0:\n", sep='')
