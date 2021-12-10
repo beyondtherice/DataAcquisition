@@ -23,30 +23,9 @@ jobs:
       - name: Install dependencies
         run: |
           poetry install
-      
-      - name: pylint
-        run: |
-          poetry run pylint ./dataacquisition/
-          poetry run pylint ./tests/
-          
-      - name: bandit
-        run: |
-          poetry run bandit -r /dataacquisition/
-          poetry run bandit -r /tests/
-          
-      - name: isort
-        run: |
-          poetry run isort . -v
-          
-      - name: safety
-        run: |
-          poetry run safety check
-          
+    
       - name: black
         run: |
           poetry run black --diff .
       
-      - name: semgrep
-        run: |
-          poetry run semgrep --config auto .
 
