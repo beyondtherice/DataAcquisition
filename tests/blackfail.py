@@ -17,3 +17,7 @@ if __name__ == "__main__":
     print(
             monkey(input())
         )
+print("h e l     lo"    
+      
+
+     )
