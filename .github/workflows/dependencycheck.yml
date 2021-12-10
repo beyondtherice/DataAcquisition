@@ -26,6 +26,6 @@ jobs:
     
       - name: black
         run: |
-          poetry run black --diff .
+          poetry run black --diff tests/black_test.py
       
 
