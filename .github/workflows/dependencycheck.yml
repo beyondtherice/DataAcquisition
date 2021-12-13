@@ -22,7 +22,7 @@ jobs:
         
       - name: Install dependencies
         run: |
-          poetry install --dev-only
+          poetry install --dev-dependency
     
       - name: black
         run: |
