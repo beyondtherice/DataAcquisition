@@ -22,10 +22,14 @@ jobs:
         
       - name: Install dependencies
         run: |
-          poetry install --dev-dependency
+          poetry install
     
       - name: black
         run: |
           poetry run black --diff tests/black_test.py
+          
+      - name: hello
+        run: |
+          echo "hello"
       
 
