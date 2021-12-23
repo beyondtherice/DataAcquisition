@@ -1,44 +1,47 @@
+"""analyzes given spotify song"""
+import os
 import spotipy
-
-sp = spotipy.Spotify()
-from spotipy.oauth2 import SpotifyClientCredentials
-import spotipy.util as util
+from dotenv import load_dotenv
 import pandas as pd
-import matplotlib.pyplot as plt
-from spotipy.oauth2 import SpotifyOAuth
-from pprint import pprint
-from time import sleep
+from spotipy.oauth2 import SpotifyClientCredentials
 
-# setting up authorization
-cid = ""
-secret = ""
+def authentication(cid: str,secret: str) -> any:
+    """Sets up the client authentication"""
+    client_credentials_manager = SpotifyClientCredentials(client_id=cid,
+            client_secret=secret)
+    spot_auth = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+    return spot_auth
 
-username = "your_account_number"
-scope = "user-library-read,user-read-playback-state,user-modify-playback-state"  # check the documentation
-authorization_url = "https://accounts.spotify.com/authorize"
-token_url = "https://accounts.spotify.com/api/token"
-redirect_uri = ""
+def analysis_func(track: str,spot_auth) -> any:
+    """analyses the trck useing the spotify api"""
+    analysis = spot_auth.audio_analysis(track)
+    # features = spot_auth.audio_features(track)
+    # features_df = pd.DataFrame(data=features, columns=features[0].keys())
+    beats_df = pd.DataFrame(data=analysis["beats"])
+    # segments_df = pd.DataFrame(data=analysis["segments"])
+    # bars_df = pd.DataFrame(data=analysis["bars"])
+    # tatums_df = pd.DataFrame(data=analysis["tatums"])
+    return beats_df
 
-token = util.prompt_for_user_token(
-    username, scope, client_id="", client_secret="", redirect_uri=""
-)
+def beatmaker(beats):
+    """appends the osu file with data"""
+    beat_start = beats["start"]
+    with open("osutesting.osu", 'a', encoding="utf-8") as beatmap:
+        for index, _ in beats.iterrows():
+            print("256,192,",beat_start[index]*1000,",5,4,0:0:0:0:\n", sep='')
+            beatmap.write("256,192,"+ str(beat_start[index]*1000) +",5,4,0:0:0:0:\n")
 
-client_credentials_manager = SpotifyClientCredentials(
-    client_id=cid, client_secret=secret
-)
-sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+def main():
+    """declared variables and calls other funvtions"""
+    load_dotenv()
+    cid: str = os.environ.get("CLIENT_ID")
+    secret: str = os.environ.get("CLIENT_SECRET")
 
+    spot_auth = authentication(cid,secret)
 
-analysis = sp.audio_analysis("")
-features = sp.audio_features("")
-features_df = pd.DataFrame(data=features, columns=features[0].keys())
-beats_df = pd.DataFrame(data=analysis["beats"])
-segments_df = pd.DataFrame(data=analysis["segments"])
-bars_df = pd.DataFrame(data=analysis["bars"])
-tatums_df = pd.DataFrame(data=analysis["tatums"])
+    track = "spotify:track:6yIjtVtnOBeC8SwdVHzAuF"
+    beats = analysis_func(track,spot_auth)
+    beatmaker(beats)
 
-
-plt.figure(figsize=(20, 30))
-plt.xticks(rotation=90)
-
-print(segments_df)
+if __name__ == "__main__":
+    main()
