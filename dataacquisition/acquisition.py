@@ -42,6 +42,6 @@ def main():
     track = "spotify:track:6yIjtVtnOBeC8SwdVHzAuF"
     beats = analysis_func(track,spot_auth)
     beatmaker(beats)
-
+print("hello")
 if __name__ == "__main__":
     main()
